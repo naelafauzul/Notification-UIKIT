@@ -17,16 +17,16 @@ class ViewController: UIViewController {
         
     }
     
-    //mengatur permission untuk menerima notifikasi
+    //setting permission to receive notifications
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UNUserNotificationCenter.current().requestAuthorization(
             options: [.alert, .badge, .sound]
         ) { granted, _ in
             if granted {
-                print("Mendapatkan izin dari pengguna untuk local notifications")
+                print("Obtained permission from the user for local notifications")
             } else {
-                print("Tidak mendapatkan izin dari pengguna untuk local notifications")
+                print("Did not obtained permission from the user for local notifications")
             }
         }
     }
@@ -34,10 +34,10 @@ class ViewController: UIViewController {
     @IBAction func scheduleNotification(_ sender: Any) {
         
         let content = UNMutableNotificationContent()
-        content.title = "Ayo Lanjutkan Menabung!"
-        content.body = "lanjutkan isi tabungan anda agar impian Anda segera tercapai."
+        content.title = "Let's Continue Saving"
+        content.body = "Keep filling your savings to quickly achieve your dreams."
         content.sound = .default
-        content.userInfo = ["value": "Data dengan local notification"]
+        content.userInfo = ["value": "Data with local notification"]
         
         let fireDate = Calendar.current.dateComponents(
             [.day, .month, .year, .hour, .minute, .second],
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         let center = UNUserNotificationCenter.current()
         center.add(request) { error in
             if error != nil {
-                print("Error = \(error?.localizedDescription ?? "Terjadi kesalahan dalam local notification")")
+                print("Error = \(error?.localizedDescription ?? "An error occurred in the local notification.")")
             }
         }
     }
@@ -72,7 +72,7 @@ extension ViewController: UNUserNotificationCenterDelegate {
         didReceive response: UNNotificationResponse,
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
-        print("UserInfo yang terkait dengan notifikasi == \(response.notification.request.content.userInfo)")
+        print("UserInfo about notification == \(response.notification.request.content.userInfo)")
         completionHandler()
     }
 }
